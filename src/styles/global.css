@@ -1,0 +1,201 @@
+:root,
+:root[data-theme='ghost'] {
+  color-scheme: dark;
+  --bg: #07070a;
+  --surface: #12121a;
+  --text: #ecebf4;
+  --muted: #a3a1b8;
+  --border: #272735;
+  --accent: #39ff88;
+  --on-accent: #04120a;
+  --link: #7cc4ff;
+  --glow: rgba(57, 255, 136, 0.35);
+  --font-display: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --font-body: system-ui, 'Segoe UI', sans-serif;
+  --bg-image: none;
+  --bg-image-opacity: 0.14;
+}
+
+:root[data-theme='rose'] {
+  color-scheme: light;
+  --bg: #fbf1f1;
+  --surface: #fff8f6;
+  --text: #4a2f3a;
+  --muted: #7d5f6a;
+  --border: #ecd3d6;
+  --accent: #a94468;
+  --on-accent: #ffffff;
+  --link: #a94468;
+  --glow: transparent;
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body: Georgia, 'Times New Roman', serif;
+  --bg-image: none;
+  --bg-image-opacity: 0.12;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* Faded drawing behind the page. Set --bg-image later to switch it on. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  opacity: var(--bg-image-opacity);
+  pointer-events: none;
+  z-index: -1;
+}
+
+main {
+  flex: 1;
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+  padding-block: 2rem;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+a { color: var(--link); }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  text-decoration: none;
+  text-shadow: 0 0 14px var(--glow);
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.site-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-quiet {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.hero { padding-block: 3rem; max-width: 40rem; }
+.hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); margin: 0 0 1rem; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.card h2, .card h3 { margin-top: 0; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; list-style: none; }
+.tags li {
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.chapter-list { list-style: none; padding: 0; display: grid; gap: 0.75rem; }
+.chapter-list a {
+  display: block;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.reader {
+  max-width: 50rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.reader-page {
+  aspect-ratio: 2 / 3;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  color: var(--muted);
+}
+
+.reader-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 50rem;
+  margin: 1.5rem auto;
+}

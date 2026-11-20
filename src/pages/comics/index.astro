@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import { series } from '../../data/comics';
+---
+
+<Base title="Comics" description="All comics on GHOSTCOMIX.">
+  <h1>Comics</h1>
+
+  {series.length === 0 ? (
+    <p>No comics yet. Check back soon.</p>
+  ) : (
+    <div class="card-grid">
+      {series.map((s) => (
+        <article class="card">
+          <h2><a href={`/comics/${s.slug}/`}>{s.title}</a></h2>
+          <p>{s.hook}</p>
+          <p>Status: {s.status}</p>
+          <ul class="tags">
+            {s.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  )}
+</Base>

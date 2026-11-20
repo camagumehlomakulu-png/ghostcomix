@@ -1,0 +1,39 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { series } from '../../../data/comics';
+
+export function getStaticPaths() {
+  return series.map((s) => ({
+    params: { series: s.slug },
+    props: { s },
+  }));
+}
+
+const { s } = Astro.props;
+---
+
+<Base title={s.title} description={s.hook}>
+  <h1>{s.title}</h1>
+  <p>{s.synopsis}</p>
+  <p>Status: {s.status}</p>
+  <ul class="tags">
+    {s.tags.map((tag) => <li>{tag}</li>)}
+  </ul>
+
+  <p>
+    <a class="btn" href={`/comics/${s.slug}/chapter-1/`}>Start reading</a>
+  </p>
+
+  <h2>Chapters</h2>
+  <ol class="chapter-list">
+    {s.chapters.map((c) => (
+      <li>
+        <a href={`/comics/${s.slug}/chapter-${c.number}/`}>
+          {c.title} · {c.pages} pages
+        </a>
+      </li>
+    ))}
+  </ol>
+
+  {s.status === 'completed' && <p><strong>This series is complete.</strong></p>}
+</Base>

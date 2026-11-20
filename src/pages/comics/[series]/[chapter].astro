@@ -1,0 +1,34 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { series } from '../../../data/comics';
+
+export function getStaticPaths() {
+  return series.flatMap((s) =>
+    s.chapters.map((c, i) => ({
+      params: { series: s.slug, chapter: `chapter-${c.number}` },
+      props: { s, c, prev: s.chapters[i - 1], next: s.chapters[i + 1] },
+    }))
+  );
+}
+
+const { s, c, prev, next } = Astro.props;
+const pages = Array.from({ length: c.pages }, (_, i) => i + 1);
+---
+
+<Base title={`${s.title}: ${c.title}`}>
+  <p><a href={`/comics/${s.slug}/`}>← Back to {s.title}</a></p>
+  <h1>{c.title}</h1>
+
+  <div class="reader">
+    {pages.map((n) => (
+      <div class="reader-page">Page {n}</div>
+    ))}
+  </div>
+
+  <nav class="reader-nav" aria-label="Chapter navigation">
+    {prev ? <a class="btn btn-quiet" href={`/comics/${s.slug}/chapter-${prev.number}/`}>← Previous chapter</a> : <span></span>}
+    {next
+      ? <a class="btn" href={`/comics/${s.slug}/chapter-${next.number}/`}>Next chapter →</a>
+      : <a class="btn" href={`/comics/${s.slug}/`}>{s.status === 'completed' ? 'The end · back to series' : 'Back to series'}</a>}
+  </nav>
+</Base>

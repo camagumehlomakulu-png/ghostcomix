@@ -1,16 +1,25 @@
 ---
+import Base from '../layouts/Base.astro';
+import { series } from '../data/comics';
+
+const featured = series[0];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>GhostComix</h1>
-	</body>
-</html>
+<Base>
+  <section class="hero">
+    <h1>Original comics, haunting your screen.</h1>
+    <p>GHOSTCOMIX is a home for original comic series.</p>
+    <a class="btn" href="/comics/">Browse comics</a>
+  </section>
+
+  {featured && (
+    <section>
+      <h2>Featured</h2>
+      <div class="card">
+        <h3>{featured.title}</h3>
+        <p>{featured.hook}</p>
+        <a class="btn" href={`/comics/${featured.slug}/`}>Read {featured.title}</a>
+      </div>
+    </section>
+  )}
+</Base>
